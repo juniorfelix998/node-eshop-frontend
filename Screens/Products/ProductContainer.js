@@ -13,7 +13,7 @@ const productsCategories = require('../../assets/data/categories.json')
 
 let {height} = Dimensions.get('window')
 
-const ProductContainer = () => {
+const ProductContainer = (props) => {
 
     const [products, setProducts] = useState([]);
     const [productsFiltered, setProductsFiltered] = useState([])
@@ -80,7 +80,7 @@ const ProductContainer = () => {
                     {focus == true ? (<Icon onPress={onBlur} name="ios-close"/>) : null}
                 </Item>
             </Header>
-            {focus == true ? (<SearchedProducts productsFiltered={productsFiltered}/>) : (<ScrollView>
+            {focus == true ? (<SearchedProducts navigation={props.navigation} productsFiltered={productsFiltered}/>) : (<ScrollView>
                 <View>
 
                     <View>
@@ -96,6 +96,7 @@ const ProductContainer = () => {
                             {productsCtg.map((item) => {
                                 return (
                                     <ProductList
+                                        navigation={props.navigation}
                                         key={item._id.$oid}
                                         item={item}
                                     />
@@ -136,4 +137,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ProductContainer
+export default ProductContainer;

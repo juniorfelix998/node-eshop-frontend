@@ -1,20 +1,23 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions} from 'react-native'
-import { Content, Left, Body, ListItem, Thumbnail, Text } from 'native-base';
+import {View, StyleSheet, Dimensions} from 'react-native'
+import {Content, Left, Body, ListItem, Thumbnail, Text} from 'native-base';
 
 let {width} = Dimensions.get('window')
 
 const SearchedProducts = (props) => {
 
-    const { productsFiltered } = props;
+    const {productsFiltered} = props;
 
-    return(
-        <Content style={{width:width}}>
+    return (
+        <Content style={{width: width}}>
             {productsFiltered.length > 0 ? (
-                productsFiltered.map((item) =>(
-                    <ListItem key={item._id.$oid} avatar>
+                productsFiltered.map((item) => (
+                    <ListItem onPress={() => {
+                        props.navigation.navigate("Product Detail", {item: item})
+                    }} key={item._id.$oid} avatar>
                         <Left>
-                            <Thumbnail  source={{uri: item.image ?
+                            <Thumbnail source={{
+                                uri: item.image ?
                                     item.image : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'
                             }}/>
                         </Left>
@@ -24,9 +27,9 @@ const SearchedProducts = (props) => {
                         </Body>
                     </ListItem>
                 ))
-            ):(
+            ) : (
                 <View style={styles.center}>
-                    <Text style={{ alignSelf:  'center' }}>
+                    <Text style={{alignSelf: 'center'}}>
                         No products match the selected criteria
                     </Text>
                 </View>
